@@ -5,7 +5,7 @@
 </script>
 
 <svg width={squareSize * gridSize + 2 * inset} height={squareSize * gridSize + 2 * inset}>
-<svg x={inset} y={inset}>
+	<svg x={inset} y={inset}>
 		<rect
 			width={squareSize * gridSize}
 			height={squareSize * gridSize}
