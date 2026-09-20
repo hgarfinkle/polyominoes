@@ -1,8 +1,7 @@
-<script>
-	const squareSize = 50;
-	const gridSize = 10;
+<script lang="ts">
+	let { gridSize, selectedGrid }: { gridSize: number; selectedGrid: boolean[][] } = $props();
 
-	let selectedGrid = $state(Array(gridSize).fill(Array(gridSize).fill(false)));
+	const squareSize = 50;
 </script>
 
 <svg width={squareSize * gridSize} height={squareSize * gridSize} overflow="visible">
