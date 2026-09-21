@@ -30,6 +30,7 @@
 	.cell {
 		stroke-width: 1;
 		stroke: black;
+		cursor: pointer;
 
 		&.filled {
 			fill: black;

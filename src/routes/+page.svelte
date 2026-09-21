@@ -1,20 +1,26 @@
 <script lang="ts">
-	import type { Point, Polyomino } from '$lib';
+	import { type Polyomino } from '$lib/polyomino';
+	import { makeEmptyBooleanGrid, toPolyomino } from '$lib/booleanGrid';
 	import Grid from '../components/Grid.svelte';
 	import Size from '../components/Size.svelte';
+	import { toGraph } from '$lib/graph';
+	import Connected from '../components/Connected.svelte';
 
 	const gridSize = 10;
-	let selectedGrid = $state(Array<boolean[]>(gridSize).fill(Array<boolean>(gridSize).fill(false)));
-	let asPolyomino = $derived<Polyomino>(
-		new Set(
-			selectedGrid.flatMap((row, rowIdx) =>
-				row
-					.flatMap((cell, columnIdx) => (cell ? columnIdx : []))
-					.map<Point>((columnIdx) => ({ x: columnIdx, y: rowIdx }))
-			)
-		)
-	);
+	let selectedGrid = $state(makeEmptyBooleanGrid(gridSize));
+	let asPolyomino = $derived<Polyomino>(toPolyomino(selectedGrid));
+	let asGraph = $derived(toGraph(asPolyomino));
 </script>
 
-<Grid {gridSize} {selectedGrid} />
-<Size polyomino={asPolyomino} />
+<div class="container">
+	<Grid {gridSize} {selectedGrid} />
+	<Size polyomino={asPolyomino} />
+	<Connected graph={asGraph} />
+</div>
+
+<style>
+	.container {
+		display: flex;
+		flex-direction: row;
+	}
+</style>
