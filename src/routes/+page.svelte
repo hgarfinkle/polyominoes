@@ -14,7 +14,7 @@
 
 <div class="container">
 	<Grid {gridSize} bind:selectedGrid />
-	<div>
+	<div class="conditions-container">
 		<Size polyomino={asPolyomino} />
 		<Connected graph={asGraph} />
 	</div>
@@ -24,5 +24,8 @@
 	.container {
 		display: flex;
 		flex-direction: row;
+	}
+	.conditions-container {
+		margin-left: 1rem;
 	}
 </style>
