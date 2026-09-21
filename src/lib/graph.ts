@@ -42,8 +42,6 @@ function getVerticesInConnectedComponent<T>(g: Graph<T>, v0: T) {
     function dFS(v: T) {
         if (visited.includes(v)) return
         visited.push(v)
-        const neighbors = getNeighbors(g, v)
-        console.log(v, neighbors, g.edges)
         getNeighbors(g, v).forEach(dFS)
     }
     dFS(v0)

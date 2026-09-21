@@ -13,7 +13,7 @@
 </script>
 
 <div class="container">
-	<Grid {gridSize} {selectedGrid} />
+	<Grid {gridSize} bind:selectedGrid />
 	<div>
 		<Size polyomino={asPolyomino} />
 		<Connected graph={asGraph} />

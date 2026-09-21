@@ -1,5 +1,8 @@
 <script lang="ts">
-	let { gridSize, selectedGrid }: { gridSize: number; selectedGrid: boolean[][] } = $props();
+	import GridSquare from './GridSquare.svelte';
+
+	let { gridSize, selectedGrid = $bindable() }: { gridSize: number; selectedGrid: boolean[][] } =
+		$props();
 
 	const squareSize = 50;
 </script>
@@ -12,32 +15,15 @@
 	/>
 	{#each { length: gridSize }, row}
 		{#each { length: gridSize }, column}
-			<rect
-				width={squareSize}
-				height={squareSize}
-				x={row * squareSize}
-				y={column * squareSize}
-				class={['cell', selectedGrid[row][column] ? 'filled' : 'unfilled']}
-				onclick={() => {
+			<GridSquare
+				{squareSize}
+				{row}
+				{column}
+				filled={selectedGrid[row][column]}
+				onClick={() => {
 					selectedGrid[row][column] = !selectedGrid[row][column];
 				}}
 			/>
 		{/each}
 	{/each}
 </svg>
-
-<style>
-	.cell {
-		stroke-width: 1;
-		stroke: black;
-		cursor: pointer;
-
-		&.filled {
-			fill: black;
-		}
-
-		&.unfilled {
-			fill: white;
-		}
-	}
-</style>
