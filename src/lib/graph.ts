@@ -10,11 +10,13 @@ export function toGraph(polyomino: Polyomino): Graph<Point> {
     const edges : [Point, Point][] = []
     // TODO avoid for loops, use iterator manipulation
     for (const cell of polyomino.values()) {
-        if (polyomino.has({x: cell.x, y: cell.y + 1})) {
-            edges.push([cell, {x: cell.x, y: cell.y + 1}])
+        const cellBelow = polyomino.get({x: cell.x, y: cell.y + 1})
+        if (cellBelow) {
+            edges.push([cell, cellBelow])
         }
-        if (polyomino.has({x: cell.x+1, y: cell.y})) {
-            edges.push([cell, {x: cell.x + 1, y: cell.y}])
+        const cellToRight = polyomino.get({x: cell.x + 1, y: cell.y})
+        if (cellToRight) {
+            edges.push([cell, cellToRight])
         }
     }
 
@@ -25,7 +27,9 @@ export function toGraph(polyomino: Polyomino): Graph<Point> {
 }
 
 function getNeighbors<T>(g: Graph<T>, v: T): T[] {
-    if (!g.vertices.has(v)) return []
+    if (!g.vertices.has(v)) {
+        return []
+    }
     return [
         ...g.edges.filter(e => e[0] === v).map(e => e[1]),
         ...g.edges.filter(e => e[1] === v).map(e => e[0])
@@ -38,7 +42,9 @@ function getVerticesInConnectedComponent<T>(g: Graph<T>, v0: T) {
     function dFS(v: T) {
         if (visited.includes(v)) return
         visited.push(v)
-        getNeighbors(g, v).map(dFS)
+        const neighbors = getNeighbors(g, v)
+        console.log(v, neighbors, g.edges)
+        getNeighbors(g, v).forEach(dFS)
     }
     dFS(v0)
     return visited

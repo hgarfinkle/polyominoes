@@ -14,8 +14,10 @@
 
 <div class="container">
 	<Grid {gridSize} {selectedGrid} />
-	<Size polyomino={asPolyomino} />
-	<Connected graph={asGraph} />
+	<div>
+		<Size polyomino={asPolyomino} />
+		<Connected graph={asGraph} />
+	</div>
 </div>
 
 <style>

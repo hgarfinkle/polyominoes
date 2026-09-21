@@ -26,6 +26,11 @@ export class HashSet<T> {
         return this.map.has(this.hash(value))
     }
 
+    // Useful for getting the referentially-identical value in the map
+    get(value: T) {
+        return this.map.get(this.hash(value))
+    }
+
     private hash(value: T) {
         return JSON.stringify(value)
     }
