@@ -1,7 +1,7 @@
 import type { HashSet } from "./hashSet"
 import type { Point, Polyomino } from "./polyomino"
 
-export type Graph<T> = {
+export type Graph<T = unknown> = {
     vertices: HashSet<T>,
     edges: [T, T][]
 }
@@ -36,22 +36,22 @@ function getNeighbors<T>(g: Graph<T>, v: T): T[] {
     ]
 }
 
-function getVerticesInConnectedComponent<T>(g: Graph<T>, v0: T) {
-    if (!g.vertices.has(v0)) return []
-    const visited: T[] = []
-    function dFS(v: T) {
+export function getConnectedComponents<T>(g: Graph<T>): T[][] {
+    const visited: T[] = []   
+    function dFS(v: T, collector: T[]) {
         if (visited.includes(v)) return
         visited.push(v)
-        getNeighbors(g, v).forEach(dFS)
+        collector.push(v)
+        getNeighbors(g, v).forEach(v1 => dFS(v1, collector))
     }
-    dFS(v0)
-    return visited
-}
-
-export function isConnected<T>(g: Graph<T>): boolean {
-    const arbitraryVertex = g.vertices.values().next().value
-    if (arbitraryVertex) {
-        return getVerticesInConnectedComponent(g, arbitraryVertex).length === g.vertices.size()
-    }
-    return false
+    
+    const components: T[][] = []
+    g.vertices.values().forEach(v => {
+        if (!visited.includes(v)) {
+            const currentComponent: T[] = []
+            dFS(v, currentComponent)
+            components.push(currentComponent)
+        }
+    })
+    return components
 }
