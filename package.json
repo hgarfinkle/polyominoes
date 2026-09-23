@@ -40,7 +40,8 @@
 	},
 	"dependencies": {
 		"husky": "^9.1.7",
-		"lint-staged": "^17.5.1"
+		"lint-staged": "^17.5.1",
+		"sanitize.css": "^13.0.0"
 	},
 	"lint-staged": {
 		"*.{svelte}": [

@@ -14,7 +14,9 @@
 </script>
 
 <div class="container">
-	<Grid {gridSize} bind:selectedGrid />
+	<div class="grid-container">
+		<Grid {gridSize} bind:selectedGrid />
+	</div>
 	<div class="conditions-container">
 		{#if polyomino.size}
 			<Size {polyomino} />
@@ -28,8 +30,15 @@
 	.container {
 		display: flex;
 		flex-direction: row;
+		width: 100dvw;
+		height: 100dvh;
+		background-color: var(--background);
 	}
 	.conditions-container {
 		margin-left: 1rem;
+	}
+
+	.grid-container {
+		margin: 2rem;
 	}
 </style>

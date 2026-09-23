@@ -1,9 +1,6 @@
 <script lang="ts">
-	import { Tween } from 'svelte/motion';
-
 	let { squareSize, row, column, filled, onClick } = $props();
 
-	const darkness = Tween.of<number>(() => (filled ? 0 : 1), { duration: 50 });
 	function handleClick() {
 		onClick();
 	}
@@ -14,15 +11,23 @@
 	height={squareSize}
 	x={row * squareSize}
 	y={column * squareSize}
-	class="cell"
+	class={['cell', filled ? 'filled' : 'empty']}
 	onclick={handleClick}
-	style={`fill: oklch(${darkness.current} 0 0)`}
 />
 
 <style>
 	.cell {
 		stroke-width: 1;
-		stroke: black;
+		stroke: var(--primary);
 		cursor: pointer;
+		transition: fill 0.2s ease;
+	}
+
+	.filled {
+		fill: var(--primary);
+	}
+
+	.empty {
+		fill: transparent;
 	}
 </style>
