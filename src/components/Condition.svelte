@@ -4,6 +4,6 @@
 	let { text }: { text: string } = $props();
 </script>
 
-<div transition:slide>
+<div transition:slide|global>
 	{text}
 </div>
