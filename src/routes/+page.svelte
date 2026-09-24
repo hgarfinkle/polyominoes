@@ -2,15 +2,11 @@
 	import { type Polyomino } from '$lib/polyomino';
 	import { makeEmptyBooleanGrid, toPolyomino } from '$lib/booleanGrid';
 	import Grid from '../components/Grid.svelte';
-	import Size from '../components/Size.svelte';
-	import { toGraph } from '$lib/graph';
-	import Connected from '../components/Connected.svelte';
-	import Holes from '../components/Holes.svelte';
+	import Conditions from '../components/conditions/Conditions.svelte';
 
 	const gridSize = 10;
 	let selectedGrid = $state(makeEmptyBooleanGrid(gridSize));
 	let polyomino = $derived<Polyomino>(toPolyomino(selectedGrid));
-	let asGraph = $derived(toGraph(polyomino));
 </script>
 
 <div class="container">
@@ -19,9 +15,7 @@
 	</div>
 	<div class="conditions-container">
 		{#if polyomino.size}
-			<Size {polyomino} />
-			<Connected graph={asGraph} />
-			<Holes {polyomino} />
+			<Conditions {polyomino} />
 		{/if}
 	</div>
 </div>

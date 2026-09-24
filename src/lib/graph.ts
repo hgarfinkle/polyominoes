@@ -6,17 +6,33 @@ export type Graph<T = unknown> = {
     edges: [T, T][]
 }
 
-export function toGraph(polyomino: Polyomino): Graph<Point> {
+// Only returns cell to right and below, so each desired graph edge is counted once.
+export function getOrthogonalNeighbors(p: Point): Point[] {
+    return [
+        {x: p.x, y: p.y + 1},
+        {x: p.x + 1, y: p.y}
+    ]
+}
+
+// Only returns cells in half the directions, so each desired graph edge is counted once. 
+export function getDiagonalNeighbors(p: Point): Point[] {
+    return [
+        {x: p.x, y: p.y + 1},
+        {x: p.x + 1, y: p.y},
+        {x: p.x + 1, y: p.y + 1},
+        {x: p.x - 1, y: p.y + 1}
+    ]
+}
+
+export function toGraph(polyomino: Polyomino, getNeighbors: (point: Point) => Point[]): Graph<Point> {
     const edges : [Point, Point][] = []
     // TODO avoid for loops, use iterator manipulation
     for (const cell of polyomino.values()) {
-        const cellBelow = polyomino.get({x: cell.x, y: cell.y + 1})
-        if (cellBelow) {
-            edges.push([cell, cellBelow])
-        }
-        const cellToRight = polyomino.get({x: cell.x + 1, y: cell.y})
-        if (cellToRight) {
-            edges.push([cell, cellToRight])
+        for (const neighbor of getNeighbors(cell)) {
+            const neighborInPmino = polyomino.get(neighbor)
+            if (neighborInPmino) {
+                edges.push([cell, neighborInPmino])
+            }
         }
     }
 

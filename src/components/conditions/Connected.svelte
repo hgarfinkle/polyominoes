@@ -8,10 +8,8 @@
 	let numConnectedComponents = $derived(getConnectedComponents(graph).length);
 </script>
 
-{#if numConnectedComponents > 0}
-	<Condition
-		text={numConnectedComponents === 1
-			? 'Connected'
-			: `Disconnected: there are ${numConnectedComponents} connected components`}
-	/>
-{/if}
+<Condition
+	text={numConnectedComponents === 1
+		? 'Connected'
+		: `Disconnected: there are ${numConnectedComponents} connected components`}
+/>
