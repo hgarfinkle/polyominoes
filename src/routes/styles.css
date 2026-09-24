@@ -1,4 +1,5 @@
 :root {
-    --background: oklch(0.9552 0.0673 140);
-    --primary: oklch(0.3198 0.0174 140);
+    --theme-color: 140;
+    --background: oklch(0.9552 0.0673 var(--theme-color));
+    --primary: oklch(0.3198 0.0174 var(--theme-color));
 }
