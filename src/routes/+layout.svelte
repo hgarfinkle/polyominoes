@@ -1,9 +1,9 @@
 <script lang="ts">
-	import favicon from '$lib/assets/favicon.svg';
-	import 'sanitize.css';
-	import './styles.css';
+	import favicon from '$lib/assets/favicon.svg'
+	import 'sanitize.css'
+	import './styles.css'
 
-	let { children } = $props();
+	let { children } = $props()
 </script>
 
 <svelte:head>

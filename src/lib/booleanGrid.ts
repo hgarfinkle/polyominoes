@@ -1,9 +1,9 @@
-import type { Polyomino } from '$lib/polyomino';
-import type { Point } from './point';
-import { HashSet } from './hashSet';
+import type { Polyomino } from '$lib/polyomino'
+import type { Point } from './point'
+import { HashSet } from './hashSet'
 
 export function makeEmptyBooleanGrid(size: number) {
-	return Array<boolean[]>(size).fill(Array<boolean>(size).fill(false));
+	return Array<boolean[]>(size).fill(Array<boolean>(size).fill(false))
 }
 
 export function toPolyomino(grid: boolean[][]): Polyomino {
@@ -13,5 +13,5 @@ export function toPolyomino(grid: boolean[][]): Polyomino {
 				.flatMap((cell, columnIdx) => (cell ? columnIdx : []))
 				.map<Point>((columnIdx) => ({ x: columnIdx, y: rowIdx }))
 		)
-	);
+	)
 }

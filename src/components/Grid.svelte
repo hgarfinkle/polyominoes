@@ -1,10 +1,10 @@
 <script lang="ts">
-	import GridSquare from './GridSquare.svelte';
+	import GridSquare from './GridSquare.svelte'
 
 	let { gridSize, selectedGrid = $bindable() }: { gridSize: number; selectedGrid: boolean[][] } =
-		$props();
+		$props()
 
-	const squareSize = 50;
+	const squareSize = 50
 </script>
 
 <svg width={squareSize * gridSize} height={squareSize * gridSize} overflow="visible">
@@ -17,7 +17,7 @@
 				{column}
 				filled={selectedGrid[gridSize - row - 1][column]}
 				onClick={() => {
-					selectedGrid[gridSize - row - 1][column] = !selectedGrid[gridSize - row - 1][column];
+					selectedGrid[gridSize - row - 1][column] = !selectedGrid[gridSize - row - 1][column]
 				}}
 			/>
 		{/each}

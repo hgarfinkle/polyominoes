@@ -1,8 +1,8 @@
 <script lang="ts">
-	let { squareSize, row, column, filled, onClick } = $props();
+	let { squareSize, row, column, filled, onClick } = $props()
 
 	function handleClick() {
-		onClick();
+		onClick()
 	}
 </script>
 

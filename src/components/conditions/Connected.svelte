@@ -1,13 +1,13 @@
 <script lang="ts">
-	import type { Graph } from '$lib/graph';
-	import { getConnectedComponents } from '$lib/graph';
-	import type { Polyomino } from '$lib/polyomino';
-	import type { Point } from '$lib/point';
-	import Archipelago from './Archipelago.svelte';
-	import Condition from './Condition.svelte';
+	import type { Graph } from '$lib/graph'
+	import { getConnectedComponents } from '$lib/graph'
+	import type { Polyomino } from '$lib/polyomino'
+	import type { Point } from '$lib/point'
+	import Archipelago from './Archipelago.svelte'
+	import Condition from './Condition.svelte'
 
-	let { graph, polyomino }: { graph: Graph<Point>; polyomino: Polyomino } = $props();
-	let numConnectedComponents = $derived(getConnectedComponents(graph).length);
+	let { graph, polyomino }: { graph: Graph<Point>; polyomino: Polyomino } = $props()
+	let numConnectedComponents = $derived(getConnectedComponents(graph).length)
 </script>
 
 <Condition
