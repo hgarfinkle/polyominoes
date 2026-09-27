@@ -3,6 +3,7 @@
 	import type { Polyomino } from '$lib/polyomino';
 	import Connected from './Connected.svelte';
 	import HolesPunctures from './HolesPunctures.svelte';
+	import Perimeter from './Perimeter.svelte';
 	import Size from './Size.svelte';
 
 	let { polyomino }: { polyomino: Polyomino } = $props();
@@ -12,3 +13,4 @@
 <Size {polyomino} />
 <Connected {graph} {polyomino} />
 <HolesPunctures {polyomino} />
+<Perimeter {graph} />
