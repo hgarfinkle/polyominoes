@@ -1,7 +1,8 @@
 <script lang="ts">
 	import type { Graph } from '$lib/graph';
 	import { getConnectedComponents } from '$lib/graph';
-	import type { Point, Polyomino } from '$lib/polyomino';
+	import type { Polyomino } from '$lib/polyomino';
+	import type { Point } from '$lib/point';
 	import Archipelago from './Archipelago.svelte';
 	import Condition from './Condition.svelte';
 

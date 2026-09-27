@@ -1,5 +1,6 @@
 import type { HashSet } from './hashSet';
-import type { Point, Polyomino } from './polyomino';
+import type { Polyomino } from './polyomino';
+import type { Point } from './point';
 
 export type Graph<T = unknown> = {
 	vertices: HashSet<T>;

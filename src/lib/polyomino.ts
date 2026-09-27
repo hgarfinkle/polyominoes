@@ -1,75 +1,7 @@
 import { HashSet } from './hashSet';
-
-export type Point = { x: number; y: number };
-function add(p1: Point, p2: Point): Point {
-	return { x: p1.x + p2.x, y: p1.y + p2.y };
-}
+import { type Diagonal, moveInDirection, opposite, toCardinalDirections, toCoordinateDirections, type Point, neighbors } from './point';
 
 export type Polyomino = HashSet<Point>;
-
-export const directions = ['left', 'right', 'up', 'down'] as const;
-export type Direction = (typeof directions)[number];
-type Diagonal = 'ru' | 'rd' | 'ld' | 'lu';
-function toCoordinateDirections(diagonal: Diagonal): { x: 'min' | 'max'; y: 'min' | 'max' } {
-	switch (diagonal) {
-		case 'ru':
-			return { x: 'max', y: 'max' };
-		case 'rd':
-			return { x: 'max', y: 'min' };
-		case 'ld':
-			return { x: 'min', y: 'min' };
-		case 'lu':
-			return { x: 'min', y: 'max' };
-		default:
-			diagonal satisfies never;
-			return diagonal;
-	}
-}
-function opposite(diagonal: Diagonal): Diagonal {
-	switch (diagonal) {
-		case 'ru':
-			return 'ld';
-		case 'rd':
-			return 'lu';
-		case 'ld':
-			return 'ru';
-		case 'lu':
-			return 'rd';
-		default:
-			diagonal satisfies never;
-			return diagonal;
-	}
-}
-function toCardinalDirections(diagonal: Diagonal): [Direction, Direction] {
-	switch (diagonal) {
-		case 'ru':
-			return ['right', 'up'];
-		case 'rd':
-			return ['right', 'down'];
-		case 'ld':
-			return ['left', 'down'];
-		case 'lu':
-			return ['left', 'up'];
-		default:
-			diagonal satisfies never;
-			return diagonal;
-	}
-}
-function toMove(direction: Direction): Point {
-	switch (direction) {
-		case 'left':
-			return { x: -1, y: 0 };
-		case 'right':
-			return { x: 1, y: 0 };
-		case 'up':
-			return { x: 0, y: 1 };
-		case 'down':
-			return { x: 0, y: -1 };
-	}
-}
-function moveInDirection(point: Point, direction: Direction): Point {
-	return add(point, toMove(direction));
-}
 
 function dimensions(pmino: Polyomino) {
 	let minX = Infinity;
@@ -83,15 +15,6 @@ function dimensions(pmino: Polyomino) {
 		maxY = Math.max(maxY, point.y);
 	});
 	return { x: { min: minX, max: maxX }, y: { min: minY, max: maxY } };
-}
-
-function neighbors(p: Point): Point[] {
-	return [
-		{ x: p.x + 1, y: p.y },
-		{ x: p.x - 1, y: p.y },
-		{ x: p.x, y: p.y + 1 },
-		{ x: p.x, y: p.y - 1 }
-	];
 }
 
 // TODO use or remove

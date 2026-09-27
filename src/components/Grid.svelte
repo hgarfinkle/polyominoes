@@ -15,9 +15,9 @@
 				{squareSize}
 				{row}
 				{column}
-				filled={selectedGrid[row][column]}
+				filled={selectedGrid[gridSize - row - 1][column]}
 				onClick={() => {
-					selectedGrid[row][column] = !selectedGrid[row][column];
+					selectedGrid[gridSize - row - 1][column] = !selectedGrid[gridSize - row - 1][column];
 				}}
 			/>
 		{/each}

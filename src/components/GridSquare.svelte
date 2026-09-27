@@ -9,8 +9,8 @@
 <rect
 	width={squareSize}
 	height={squareSize}
-	x={row * squareSize}
-	y={column * squareSize}
+	x={column * squareSize}
+	y={row * squareSize}
 	class={['cell', filled ? 'filled' : 'empty']}
 	onclick={handleClick}
 />

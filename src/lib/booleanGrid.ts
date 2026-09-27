@@ -1,4 +1,5 @@
-import type { Point, Polyomino } from '$lib/polyomino';
+import type { Polyomino } from '$lib/polyomino';
+import type { Point } from './point';
 import { HashSet } from './hashSet';
 
 export function makeEmptyBooleanGrid(size: number) {
