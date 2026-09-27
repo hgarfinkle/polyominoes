@@ -44,7 +44,7 @@
 		"sanitize.css": "^13.0.0"
 	},
 	"lint-staged": {
-		"*.{svelte}": [
+		"*.{svelte|ts}": [
 			"prettier --write",
 			"eslint --max-warnings 0 ."
 		]
