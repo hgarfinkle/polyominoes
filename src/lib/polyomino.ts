@@ -114,7 +114,7 @@ export function isOrthogonallyDirected(pmino: Polyomino, direction: Direction): 
 	return seen.size === pmino.size
 }
 
-// A cell can only be an root candidate if it is in the corner of the pmino's bounding box
+// A cell can only be a root candidate if it is in the corner of the pmino's bounding box
 function getRoot(pmino: Polyomino, direction: Diagonal): Point | undefined {
 	const dims = dimensions(pmino)
 	const asCoordinateDirections = toCoordinateDirectionsDiagonal(direction)

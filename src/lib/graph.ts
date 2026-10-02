@@ -31,7 +31,7 @@ export function toGraph(
 	polyomino: Polyomino,
 	getNeighbors: (point: Point) => Point[]
 ): Graph<Point> {
-	const edges: [Point, Point][] = []
+	const edges: Edge<Point>[] = []
 	// TODO avoid for loops, use iterator manipulation
 	for (const cell of polyomino.values()) {
 		for (const neighbor of getNeighbors(cell)) {
@@ -76,4 +76,10 @@ export function getConnectedComponents<T>(g: Graph<T>): T[][] {
 		}
 	})
 	return components
+}
+
+// A graph is Sukoro if no two adjacent vertices have equal degree
+export function isSukoro(g: Graph) {
+	const map = new Map(g.vertices.values().map<[unknown, number]>(v => [v, getNeighbors(g, v).length]))
+	return g.edges.every(e => map.get(e[0]) !== map.get(e[1]))
 }
