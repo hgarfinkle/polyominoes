@@ -29,7 +29,7 @@ export function toLeft(direction: Direction): Direction {
 export const diagonals = ['ru', 'rd', 'ld', 'lu'] as const
 export type Diagonal = (typeof diagonals)[number]
 
-export function toCoordinateDirections(diagonal: Diagonal): { x: 'min' | 'max'; y: 'min' | 'max' } {
+export function toCoordinateDirectionsDiagonal(diagonal: Diagonal): { x: 'min' | 'max'; y: 'min' | 'max' } {
 	switch (diagonal) {
 		case 'ru':
 			return { x: 'max', y: 'max' }
@@ -45,7 +45,16 @@ export function toCoordinateDirections(diagonal: Diagonal): { x: 'min' | 'max'; 
 	}
 }
 
-export function opposite(diagonal: Diagonal): Diagonal {
+export function toCoordinateDirections(direction: Direction): {axis: "x" | "y", minMax: "min" | "max"} {
+	switch (direction) {
+		case "down": return {axis: "y", minMax: "min"}
+		case "left": return {axis: "x", minMax: "min"}
+		case "right":return {axis: "x", minMax: "max"}
+		case "up":return {axis: "y", minMax: "max"}
+	}
+}
+
+export function diagonalOpposite(diagonal: Diagonal): Diagonal {
 	switch (diagonal) {
 		case 'ru':
 			return 'ld'
@@ -56,8 +65,19 @@ export function opposite(diagonal: Diagonal): Diagonal {
 		case 'lu':
 			return 'rd'
 		default:
-			diagonal satisfies never
-			return diagonal
+			return diagonal satisfies never
+	}
+}
+
+export function opposite(direction: Direction): Direction {
+	switch (direction) {
+		case "down": return "up"
+		case "left": return "right"
+		case "right": return "left"
+		case "up": return "down"
+		default: {
+			return direction satisfies never
+		}
 	}
 }
 
@@ -72,8 +92,7 @@ export function toCardinalDirections(diagonal: Diagonal): [Direction, Direction]
 		case 'lu':
 			return ['left', 'up']
 		default:
-			diagonal satisfies never
-			return diagonal
+			return diagonal satisfies never
 	}
 }
 

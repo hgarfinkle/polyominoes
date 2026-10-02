@@ -10,7 +10,9 @@ import {
 	type Direction,
 	directions,
     toLeft,
-    pEqual
+    pEqual,
+    diagonalOpposite,
+    toCoordinateDirectionsDiagonal
 } from './point'
 
 export type Polyomino = HashSet<Point>
@@ -76,22 +78,46 @@ export function complementInContainingRectangle(pmino: Polyomino) {
 }
 
 export function isDiagonallyDirected(pmino: Polyomino, diagonal: Diagonal): boolean {
-	const root = getRoot(pmino, opposite(diagonal))
+	const root = getRoot(pmino, diagonalOpposite(diagonal))
 	return pmino
 		.values()
 		.every(
 			(point) =>
 				point === root ||
-				toCardinalDirections(opposite(diagonal)).some((direction) =>
+				toCardinalDirections(diagonalOpposite(diagonal)).some((direction) =>
 					pmino.has(moveInDirection(point, direction))
 				)
 		)
 }
 
+export function isOrthogonallyDirected(pmino: Polyomino, direction: Direction): boolean {
+	// find _some_ cell on the required edge
+	const dims = dimensions(pmino)
+	const asCoordinateDirections = toCoordinateDirections(direction)
+	const root = pmino.values().find(cell => cell[asCoordinateDirections.axis] === dims[asCoordinateDirections.axis][asCoordinateDirections.minMax])
+	if (!root) {
+		return false
+	}
+
+	const directionsOfTravel = directions.filter(candidate => candidate !== opposite(direction))
+	// traverse
+	const toTraverse = [root]
+	const seen = new HashSet<Point>()
+	while (toTraverse.length) {
+		const next = toTraverse.pop()
+		if (next && !seen.has(next)) {
+			seen.add(next)
+			toTraverse.push(...directionsOfTravel.map(dir => moveInDirection(next, dir)))
+		}
+	}
+
+	return seen.size === pmino.size
+}
+
 // A cell can only be an root candidate if it is in the corner of the pmino's bounding box
 function getRoot(pmino: Polyomino, direction: Diagonal): Point | undefined {
 	const dims = dimensions(pmino)
-	const asCoordinateDirections = toCoordinateDirections(direction)
+	const asCoordinateDirections = toCoordinateDirectionsDiagonal(direction)
 	return pmino.get({ x: dims.x[asCoordinateDirections.x], y: dims.y[asCoordinateDirections.y] })
 }
 
@@ -101,10 +127,6 @@ export function richPerimeter(pmino: Polyomino): Direction[][] {
 	const boundaryEdges = getBoundaryEdges(pmino)
     // const seen: ReturnType<typeof getBoundaryEdges> = []
     const components: Direction[][] = []
-    // while (seen.length < boundaryEdges.length) {
-    //     const component: Direction[] = []
-
-    // }
     const map = new Map<ReturnType<typeof getBoundaryEdges>[number], ReturnType<typeof getBoundaryEdges>[number]>();
     boundaryEdges.forEach(boundaryEdge => {
         // try to turn left
