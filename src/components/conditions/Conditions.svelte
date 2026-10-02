@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getOrthogonalNeighbors, toGraph } from '$lib/graph'
+	import { getOrthogonalNeighbors, UdPointGraph } from '$lib/graph'
 	import type { Polyomino } from '$lib/polyomino'
 	import Connected from './Connected.svelte'
 	import DiagonallyDirected from './DiagonallyDirected.svelte'
@@ -8,7 +8,7 @@
 	import Size from './Size.svelte'
 
 	let { polyomino }: { polyomino: Polyomino } = $props()
-	let graph = $derived(toGraph(polyomino, getOrthogonalNeighbors))
+	let graph = $derived(UdPointGraph.fromPolyomino(polyomino, getOrthogonalNeighbors))
 </script>
 
 <Size {polyomino} />

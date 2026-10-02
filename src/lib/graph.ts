@@ -89,7 +89,7 @@ export function getDiagonalNeighbors(p: Point): Point[] {
 	]
 }
 
-export class UdGraph<T> extends Graph<UdGraph<T>, T> {
+class UdGraph<T> extends Graph<UdGraph<T>, T> {
 	protected construct(...args: GraphArgs<T>): UdGraph<T> {
 		return new UdGraph<T>(...args)
 	}
@@ -130,6 +130,9 @@ export class UdGraph<T> extends Graph<UdGraph<T>, T> {
 		return this.connectedComponents.length === 1 && this.vertices.size === 1 + this.edges.length
 	}
 }
+
+export const UdPointGraph = UdGraph<Point>
+export type UdPointGraph = UdGraph<Point>
 
 export class DiGraph<T> extends Graph<DiGraph<T>, T> {
 	protected construct(...args: GraphArgs<T>): DiGraph<T> {

@@ -1,10 +1,9 @@
 <script lang="ts">
-	import type { UdGraph } from '$lib/graph'
-	import type { Point } from '$lib/point'
+	import { UdPointGraph } from '$lib/graph'
 	import { richPerimeter, type Polyomino } from '$lib/polyomino'
 	import Condition from './Condition.svelte'
 
-	let { graph, polyomino }: { graph: UdGraph<Point>; polyomino: Polyomino } = $props()
+	let { graph, polyomino }: { graph: UdPointGraph; polyomino: Polyomino } = $props()
 	let richPerimeterfromPmino = $derived(richPerimeter(polyomino))
 </script>
 

@@ -1,21 +1,16 @@
 <script lang="ts">
-	import { getDiagonalNeighbors, getOrthogonalNeighbors, UdGraph } from '$lib/graph'
-	import type { Point } from '$lib/point'
+	import { getDiagonalNeighbors, getOrthogonalNeighbors, UdPointGraph } from '$lib/graph'
 	import { complementInContainingRectangle, type Polyomino } from '$lib/polyomino'
 	import Condition from './Condition.svelte'
 
 	let { polyomino }: { polyomino: Polyomino } = $props()
 	let holes = $derived(
-		UdGraph.fromPolyomino<UdGraph<Point>>(
-			complementInContainingRectangle(polyomino),
-			getOrthogonalNeighbors
-		).connectedComponents.length - 1
+		UdPointGraph.fromPolyomino(complementInContainingRectangle(polyomino), getOrthogonalNeighbors)
+			.connectedComponents.length - 1
 	)
 	let punctures = $derived(
-		UdGraph.fromPolyomino<UdGraph<Point>>(
-			complementInContainingRectangle(polyomino),
-			getDiagonalNeighbors
-		).connectedComponents.length - 1
+		UdPointGraph.fromPolyomino(complementInContainingRectangle(polyomino), getDiagonalNeighbors)
+			.connectedComponents.length - 1
 	)
 </script>
 
