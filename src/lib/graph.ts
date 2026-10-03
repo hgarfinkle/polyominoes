@@ -24,7 +24,7 @@ abstract class Graph<Self extends Graph<Self, T>, T = unknown> {
 		return this.edges.length
 	}
 
-	protected traverse(source: T): T[] {
+	traverse(source: T): T[] {
 		if (!this.vertices.has(source)) {
 			return []
 		}
@@ -147,3 +147,6 @@ export class DiGraph<T> extends Graph<DiGraph<T>, T> {
 		return [...this.edges.filter((e) => e[0] === v).map((e) => e[1])]
 	}
 }
+
+export const PointDiGraph = DiGraph<Point>
+export type PointDiGraph = DiGraph<Point>

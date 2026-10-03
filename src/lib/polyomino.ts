@@ -1,3 +1,4 @@
+import { PointDiGraph } from './graph';
 import { HashSet } from './hashSet'
 import {
 	type Diagonal,
@@ -93,25 +94,15 @@ export function isDiagonallyDirected(pmino: Polyomino, diagonal: Diagonal): bool
 export function isOrthogonallyDirected(pmino: Polyomino, direction: Direction): boolean {
 	// find _some_ cell on the required edge
 	const dims = dimensions(pmino)
-	const asCoordinateDirections = toCoordinateDirections(direction)
+	const asCoordinateDirections = toCoordinateDirections(opposite(direction))
 	const root = pmino.values().find(cell => cell[asCoordinateDirections.axis] === dims[asCoordinateDirections.axis][asCoordinateDirections.minMax])
 	if (!root) {
 		return false
 	}
 
-	const directionsOfTravel = directions.filter(candidate => candidate !== opposite(direction))
-	// traverse
-	const toTraverse = [root]
-	const seen = new HashSet<Point>()
-	while (toTraverse.length) {
-		const next = toTraverse.pop()
-		if (next && !seen.has(next)) {
-			seen.add(next)
-			toTraverse.push(...directionsOfTravel.map(dir => moveInDirection(next, dir)))
-		}
-	}
-
-	return seen.size === pmino.size
+	const directionsOfTravel = directions.filter(dir => dir !== opposite(direction))
+	const diGraph = PointDiGraph.fromPolyomino(pmino, p => directionsOfTravel.map(dir => moveInDirection(p, dir)))
+	return diGraph.traverse(root).length === pmino.size
 }
 
 // A cell can only be a root candidate if it is in the corner of the pmino's bounding box

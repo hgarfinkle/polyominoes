@@ -2,7 +2,7 @@
 	import { getOrthogonalNeighbors, UdPointGraph } from '$lib/graph'
 	import type { Polyomino } from '$lib/polyomino'
 	import Connected from './Connected.svelte'
-	import DiagonallyDirected from './DiagonallyDirected.svelte'
+	import DiagonallyDirected from './Directed.svelte'
 	import HolesPunctures from './HolesPunctures.svelte'
 	import Perimeter from './Perimeter.svelte'
 	import Size from './Size.svelte'
