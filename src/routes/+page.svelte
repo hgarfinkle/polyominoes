@@ -10,7 +10,9 @@
 </script>
 
 <div class="container">
-	<Grid {gridSize} bind:selectedGrid />
+	<div class="grid-container">
+		<Grid {gridSize} bind:selectedGrid />
+	</div>
 	<div class="conditions-container">
 		{#if polyomino.size}
 			<Conditions {polyomino} />
@@ -29,5 +31,10 @@
 	}
 	.conditions-container {
 		margin-left: 1rem;
+	}
+
+	.grid-container {
+		overflow-y: scroll;
+		scrollbar-width: none;
 	}
 </style>

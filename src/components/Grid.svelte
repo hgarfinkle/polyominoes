@@ -7,7 +7,12 @@
 	const squareSize = 50
 </script>
 
-<svg width={squareSize * gridSize} height={squareSize * gridSize} overflow="visible">
+<svg
+	width={squareSize * gridSize}
+	height={squareSize * gridSize}
+	viewBox={`-5 -5 ${squareSize * gridSize + 10} ${squareSize * gridSize + 10}`}
+	overflow="visible"
+>
 	<rect width={squareSize * gridSize} height={squareSize * gridSize} class="grid-border" />
 	{#each { length: gridSize }, row}
 		{#each { length: gridSize }, column}
